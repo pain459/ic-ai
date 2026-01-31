@@ -1,0 +1,16 @@
+services:
+  incident-db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: incidents
+      POSTGRES_USER: icai
+      POSTGRES_PASSWORD: icairocks
+    ports:
+      - "5433:5432"
+    volumes:
+      - incident_db_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    restart: unless-stopped
+
+volumes:
+  incident_db_data:
